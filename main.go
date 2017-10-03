@@ -6,6 +6,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -97,23 +98,28 @@ func corrected(img img) img {
 	return dst // returns the resulting image.j
 }
 
+// main is the program entry point.
 func main() {
 	if len(os.Args) < 3 { // if we don't have enought command line parameters
-		panic("Input and output filenames are missing.")
+		fmt.Fprintln(os.Stderr, "Input and output filenames are missing.")
+		os.Exit(1)
 	}
 
 	in, err := os.Open(os.Args[1]) // open up the source file.
 	if err != nil {
-		panic(err)
+		fmt.Fprintln(os.Stderr, "Coudn't open the input file for reading.")
+		os.Exit(1)
 	}
 	defer in.Close() // close later.
 
 	img, err := png.Decode(in) // reads the stored image.
 	if err != nil {
-		panic(err)
+		fmt.Fprintln(os.Stderr, "Coudn't decode image from input file.")
+		os.Exit(1)
 	}
 	if img.Bounds().Empty() { // ensure it is not empty.
-		panic("Image is empty")
+		fmt.Fprintln(os.Stderr, "Input image is empty")
+		os.Exit(1)
 	}
 
 	keyColor = img.At(0, 0) // we assume the color at the upper left corner is the key.
@@ -121,7 +127,8 @@ func main() {
 
 	out, err := os.Create(os.Args[2]) // open up the destination file.
 	if err != nil {
-		panic(err)
+		fmt.Fprintln(os.Stderr, "Coudn't open the output file for writing.")
+		os.Exit(1)
 	}
 	defer out.Close() // close later.
 
