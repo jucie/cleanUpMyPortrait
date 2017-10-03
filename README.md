@@ -7,4 +7,4 @@ It takes the color at the upper left corner and treats that as a key,
 then it scans the entire picture replacing the key with a neighbor color.
 
 Use:
-cleanUpMyPortrait marked.png fixed.png
+cleanUpMyPortrait marked.png clean.png
