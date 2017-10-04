@@ -71,7 +71,7 @@ func collectRing(img img, x, y int, colors *colors, ring int) {
 	}
 }
 
-// calculateColor returns the best color to be put in position (x,y).j
+// calculateColor returns the best color to be put in position (x,y).
 func calculateColor(img img, x, y int) color.Color {
 	var colors colors                         // to collect the surrounding colors.
 	for ring := 1; len(colors) == 0; ring++ { // will open the ring as much as needed.
